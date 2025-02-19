@@ -2,9 +2,10 @@ from typing import List
 
 class Solution:
     def minCostClimbingStairs(self, cost: List[int]) -> int:
-        def dp(n):
-            if n < 2:
-                return cost[n]
-            return cost[n] + min(dp(n-1), dp(n-2))
-        length = len(cost)
-        return min(dp(length - 1), dp(length - 2))
+        first = cost[0]
+        second = cost[1]
+        for i in range(2, len(cost)):
+            current = cost[i] + min(first, second)
+            first = second
+            second = current
+        return min(first, second)
